@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <link rel="stylesheet" href="bootstrap.min.css">
+  
+   
+   <title>Text shadow generator</title>
+
+   <style>
+       body {
+           text-align: center;
+           background-color:azure;
+       }
+       label {
+           display: block;
+       }
+       h1 {
+           font-weight: bold;
+           letter-spacing: 6px;
+           font-size: 40px;
+           color:black;
+           margin-top: 15px;
+           margin-bottom: 15px;
+       }
+       input[type="range"] {
+           width: 100%;
+       }
+       input[type="color"]{
+            border: none;
+            background-color: transparent;
+            width: 55px;
+            height: 55px;
+            padding: 0;
+            margin-bottom: 15px;
+       }
+       input[type="color"]:hover{
+            cursor: pointer;
+       }
+       textarea {
+           width: 100%;
+           resize: none;
+           margin-bottom: 15px;
+           max-width: 300px;
+            font-size: 13px;
+       }
+       .card {
+           height: 100%;
+       }
+       .card-header{
+           font-weight: bold;
+           color:#ffffff;
+       }
+       .row > div {
+           margin-bottom: 15px;
+       }
+   </style>
+</head>
+<body>
+    <h1 id = "text-test">Text shadow generator</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        Settings:
+                    </div>
+                    <div class="card-body">
+                        <label for="font_size" class="form-label">Fonts'size</label>
+                        <input type="range" class="form-range" min="8" max="40" step="1" value = "40" id="font_size">
+                        <label for="offset_x" class="form-label">Offset X</label>
+                        <input type="range" class="form-range" min="-15" max="15" step="1" value = "4" id="offset_x">
+                        <label for="offset_y" class="form-label">Offset Y</label>
+                        <input type="range" class="form-range" min="-15" max="15" step="1" value = "-1" id="offset_y">
+                        <label for="blur" class="form-label">Blur</label>
+                        <input type="range" class="form-range" min="0" max="15" step="1" value = "0" id="blur">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        Color:
+                    </div>
+                    <div class="card-body">
+                        <input type="color" id="mycol" value="#ff0000"> <br>
+                        <label for="opacity" class="form-label">Opacity</label>
+                        <input type="range" class="form-range" min="0" max="1" step="0.01" value = "1" id="opacity">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        Result:
+                    </div>
+                    <div class="card-body">
+                        <label for="resultHex"> Color HEX </label>
+                        <textarea id="resultHex" rows="4" readonly></textarea><br>
+                        <label for="resultRGBA"> Color RGBA </label>
+                        <textarea id="resultRGBA" rows="3" readonly></textarea><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+        function cssShadow({
+            font_size,
+            offset_x,
+            offset_y,
+            blur,
+            opacity,
+            color,
+            rgba
+        }) {
+            var cssStyles = offset_x + 'px ' + offset_y + 'px ' + blur + 'px ' + rgba;
+            $('#text-test').css('text-shadow', cssStyles);
+            $('#resultHex').val('background-color: ' + color + ";\nopacity: " + opacity + ";\nfont-size: " + font_size + "px;");
+            $('#resultRGBA').val("text-shadow: " +offset_x + "px "+ offset_y + "px " + blur + 'px ' + rgba + ";\nfont-size: " + font_size + "px;");
+        }
+
+        cssShadow({
+            font_size: 40,
+            offset_x: 4,
+            offset_y: -1,
+            blur: 0,
+            opacity: 1,
+            color: '#ff0000',
+            rgba: 'rgba(255,0,0,1)'
+        });
+
+        $(document).on('change', 'input', function(){
+            //alert("");
+            var font_size = $('#font_size').val();
+            var offset_x = $('#offset_x').val();
+            var offset_y = $('#offset_y').val();
+            var blur = $('#blur').val();
+            var opacity = $('#opacity').val();
+            var color = $('#mycol').val()+'';
+            var red16 = color[1] +''+color[2];
+            var green16 = color[3] +''+color[4];
+            var blue16 = color[5] +''+color[6];
+            var red10 = parseInt(red16,16);
+            var green10 = parseInt(green16,16);
+            var blue10 = parseInt(blue16,16);
+            var rgba = 'rgba('+red10+', '+green10+', '+blue10+', '+opacity+')';
+            
+            $('#text-test').css('fontSize', font_size+'px');
+            cssShadow({
+            font_size: font_size,
+            offset_x: offset_x,
+            offset_y: offset_y,
+            blur: blur,
+            opacity: opacity,
+            color: color,
+            rgba: rgba
+            });
+        });
+        
+    </script>
+</body>
+</html>
