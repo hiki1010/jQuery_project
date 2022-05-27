@@ -1,0 +1,66 @@
+body {
+    font-family: 'Merienda One', cursive;
+    background-color: #001a00;
+    color: #f0ffff;
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: #001a00;
+    width:  360px;
+    margin:  100px auto;
+    box-shadow: 0 0 3px rgba(0,0,0, .5);
+}
+
+h1 {
+    background-color: #002900;
+    margin: 0;
+    padding: 10px 20px;
+    text-align: center;
+}
+input {
+    font-family: inherit;
+    color: #f0ffff;
+    font-size: 18px;
+    background-color: #008f00;
+    width: 100%;
+    padding: 13px 13px 13px 20px;
+    box-sizing: border-box;
+    border: none;
+}
+input:focus {
+    outline: none;
+}
+
+
+span {
+    height: 60px;
+    text-align: center;
+    width: 60px;
+    float: right;
+}
+
+li {
+    background-color: #005c00;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 0 0 20px;
+}
+
+li:nth-child(2n){
+    background-color: #008f00;
+}
+
+.done {
+    color: gray;
+    text-decoration: line-through;
+}
+
+
+input::placeholder {
+    color: #8fff8f;
+}
